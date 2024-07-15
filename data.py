@@ -8,10 +8,10 @@ WHERE flights.ID = :id
 """
 
 QUERY_FLIGHTS_BY_DATE = """
-SELECT flights.*, airlines.airline, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY as DELAY 
+SELECT flights.ID as FLIGHT_ID, flights.ORIGIN_AIRPORT, flights.DESTINATION_AIRPORT, airlines.airline as AIRLINE, flights.DEPARTURE_DELAY as DELAY
 FROM flights 
 JOIN airlines ON flights.airline = airlines.id 
-WHERE date(flights.departure_time) = date(:day || '-' || :month || '-' || :year)
+WHERE flights.day = :day AND flights.month = :month AND flights.year = :year
 """
 
 QUERY_DELAYED_FLIGHTS_BY_AIRLINE = """
@@ -68,7 +68,6 @@ class FlightData:
         Searches for flight details using a specific date.
         """
         params = {'day': day, 'month': month, 'year': year}
-        print(params)
         return self._execute_query(QUERY_FLIGHTS_BY_DATE, params)
 
     def get_delayed_flights_by_airline(self, airline):

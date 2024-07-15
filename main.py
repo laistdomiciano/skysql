@@ -51,11 +51,35 @@ def flight_by_id(data_manager):
     print_results(results)
 
 
+# def flights_by_date(data_manager):
+#     """
+#     Asks the user for date input (and loops until it's valid),
+#     Then runs the query using the data object method "get_flights_by_date".
+#     When results are back, prints them to the screen in a readable format.
+#     """
+#     valid = False
+#     while not valid:
+#         try:
+#             date_input = input("Enter date in DD/MM/YYYY format: ")
+#             date = datetime.strptime(date_input, "%d/%m/%Y")
+#         except ValueError as e:
+#             print("Try again...", e)
+#         else:
+#             valid = True
+#     results = data_manager.get_flights_by_date(date.day, date.month, date.year)
+
+#     for row in results:
+#         flight_id = row['ID']
+#         origin = row['ORIGIN_AIRPORT']
+#         destination = row['DESTINATION_AIRPORT']
+#         airline = row['AIRLINE']
+#         delay = row['DEPARTURE_DELAY']
+#         print(f"{flight_id}. {origin} -> {destination} by {airline}, Delay: {delay} Minutes")
 def flights_by_date(data_manager):
     """
     Asks the user for date input (and loops until it's valid),
     Then runs the query using the data object method "get_flights_by_date".
-    When results are back, calls "print_results" to show them to on the screen.
+    When results are back, prints them to the screen in a readable format.
     """
     valid = False
     while not valid:
@@ -67,10 +91,14 @@ def flights_by_date(data_manager):
         else:
             valid = True
     results = data_manager.get_flights_by_date(date.day, date.month, date.year)
-    print(date.day)
-    print(date.month)
-    print(date.year)
-    print_results(results)
+
+    for row in results:
+        flight_id = row[0]
+        origin = row[1]
+        destination = row[2]
+        airline = row[3]
+        delay = row[4]
+        print(f"{flight_id}. {origin} -> {destination} by {airline}, Delay: {delay} Minutes")
 
 
 def print_results(results):
@@ -122,14 +150,15 @@ def show_menu_and_get_input():
             pass
         print("Try again...")
 
+
 """
 Function Dispatch Dictionary
 """
-FUNCTIONS = { 1: (flight_by_id, "Show flight by ID"),
-              2: (flights_by_date, "Show flights by date"),
-              3: (delayed_flights_by_airline, "Delayed flights by airline"),
-              4: (delayed_flights_by_airport, "Delayed flights by origin airport"),
-              5: (quit, "Exit")
+FUNCTIONS = {1: (flight_by_id, "Show flight by ID"),
+             2: (flights_by_date, "Show flights by date"),
+             3: (delayed_flights_by_airline, "Delayed flights by airline"),
+             4: (delayed_flights_by_airport, "Delayed flights by origin airport"),
+             5: (quit, "Exit")
              }
 
 
