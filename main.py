@@ -51,30 +51,6 @@ def flight_by_id(data_manager):
     print_results(results)
 
 
-# def flights_by_date(data_manager):
-#     """
-#     Asks the user for date input (and loops until it's valid),
-#     Then runs the query using the data object method "get_flights_by_date".
-#     When results are back, prints them to the screen in a readable format.
-#     """
-#     valid = False
-#     while not valid:
-#         try:
-#             date_input = input("Enter date in DD/MM/YYYY format: ")
-#             date = datetime.strptime(date_input, "%d/%m/%Y")
-#         except ValueError as e:
-#             print("Try again...", e)
-#         else:
-#             valid = True
-#     results = data_manager.get_flights_by_date(date.day, date.month, date.year)
-
-#     for row in results:
-#         flight_id = row['ID']
-#         origin = row['ORIGIN_AIRPORT']
-#         destination = row['DESTINATION_AIRPORT']
-#         airline = row['AIRLINE']
-#         delay = row['DEPARTURE_DELAY']
-#         print(f"{flight_id}. {origin} -> {destination} by {airline}, Delay: {delay} Minutes")
 def flights_by_date(data_manager):
     """
     Asks the user for date input (and loops until it's valid),
